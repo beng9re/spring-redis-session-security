@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  redis-container:
+    image: redis:alpine
+    command: "redis-server --port 6379"
+    container_name: redis
+    hostname: redis
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - 6379:6379
+  h2-db:
+    image: oscarfonts/h2
+    environment:
+      - "H2_OPTIONS=-ifNotExists"
+    ports:
+      - "81:81"
+      - "1521:1521"
+    expose:
+      - "81"
+      - "1521"
+    volumes:
+      - "~/h2db:/opt/h2-data"
